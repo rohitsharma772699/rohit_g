@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Time Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .break {
+            background-color: #f9f9a8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weekly Time Table</h1>
+    <table>
+        <tr>
+            <th>Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+        <tr>
+            <td>08:00 - 09:00</td>
+            <td>Math</td>
+            <td>Science</td>
+            <td>English</td>
+            <td>History</td>
+            <td>Math</td>
+        </tr>
+        <tr>
+            <td>09:00 - 10:00</td>
+            <td>Science</td>
+            <td>English</td>
+            <td>History</td>
+            <td>Math</td>
+            <td>Science</td>
+        </tr>
+        <tr class="break">
+            <td>10:00 - 10:30</td>
+            <td colspan="5">Break</td>
+        </tr>
+        <tr>
+            <td>10:30 - 11:30</td>
+            <td>English</td>
+            <td>History</td>
+            <td>Math</td>
+            <td>Science</td>
+            <td>English</td>
+        </tr>
+        <tr>
+            <td>11:30 - 12:30</td>
+            <td>History</td>
+            <td>Math</td>
+            <td>Science</td>
+            <td>English</td>
+            <td>History</td>
+        </tr>
+        <tr class="break">
+            <td>12:30 - 01:00</td>
+            <td colspan="5">Lunch Break</td>
+        </tr>
+        <tr>
+            <td>01:00 - 02:00</td>
+            <td>Math</td>
+            <td>Science</td>
+            <td>English</td>
+            <td>History</td>
+            <td>Math</td>
+        </tr>
+    </table>
+</body>
+</html>
