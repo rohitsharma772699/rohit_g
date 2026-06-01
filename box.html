@@ -3,45 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DP Image</title>
+    <title>Chess Game</title>
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            background-color:rgb(220,220,220);
+        body {
+            min-height: 100vh;
+            background-color: #2e3b4e;
+            color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .image{uu
-            width:520px;
-            height:520px;
-            border-radius:50%;
-            border:5px solid black;
-            overflow:hidden;
+        .game {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 560px;
         }
 
-        .image img{
-            width:100%;
-            height:100%;
-            object-fit:cover;
+        h1 {
+            text-align: center;
+            font-size: 26px;
         }
 
+        .status {
+            text-align: center;
+            font-size: 18px;
+            padding: 8px 0;
+        }
+
+        table.board {
+            width: 560px;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        table.board td {
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 40px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+
+        table.board td.light {
+            background-color: #f0d9b5;
+        }
+
+        table.board td.dark {
+            background-color: #b58863;
+        }
+
+        table.board td.selected {
+            outline: 4px solid #ffcc00;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4a6b9d;
+            color: #f8f8f8;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #6a86b8;
+        }
     </style>
 </head>
 <body>
-
-    <div class="image">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSxSIc9Q3NpeeNDplpQ8k2f8WcfCm2nkExyw&s">
+    <div class="game">
+        <h1>Chess Game</h1>
+        <div class="status" id="status">White to move</div>
+        <table class="board" id="board"></table>
+        <div class="controls">
+            <button id="resetButton">Reset</button>
+            <div>Click a piece, then click its target square.</div>
+        </div>
     </div>
 
+    <script>
+        const pieceSymbols = {
+            'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+            'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+        };
+
+        let boardState = [];
+        let selectedCell = null;
+        let currentTurn = 'white';
+        const statusEl = document.getElementById('status');
+        const boardEl = document.getElementById('board');
+
+        function resetBoard() {
+            boardState = [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['', '', '', '', '', '', '', ''],
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+            ];
+            currentTurn = 'white';
+            selectedCell = null;
+            statusEl.textContent = 'White to move';
+            renderBoard();
+        }
+
+        function renderBoard() {
+            boardEl.innerHTML = '';
+            for (let row = 0; row < 8; row++) {
+                const tr = document.createElement('tr');
+                for (let col = 0; col < 8; col++) {
+                    const td = document.createElement('td');
+                    const isLight = (row + col) % 2 === 0;
+                    td.className = isLight ? 'light' : 'dark';
+                    td.dataset.row = row;
+                    td.dataset.col = col;
+                    const piece = boardState[row][col];
+                    td.textContent = pieceSymbols[piece] || '';
+                    if (selectedCell && selectedCell.row == row && selectedCell.col == col) {
+                        td.classList.add('selected');
+                    }
+                    td.addEventListener('click', onSquareClick);
+                    tr.appendChild(td);
+                }
+                boardEl.appendChild(tr);
+            }
+        }
+
+        function isWhitePiece(piece) {
+            return piece && piece === piece.toUpperCase();
+        }
+
+        function isBlackPiece(piece) {
+            return piece && piece === piece.toLowerCase();
+        }
+
+        function onSquareClick(event) {
+            const row = parseInt(event.currentTarget.dataset.row, 10);
+            const col = parseInt(event.currentTarget.dataset.col, 10);
+            const piece = boardState[row][col];
+
+            if (!selectedCell) {
+                if (!piece) return;
+                if ((currentTurn === 'white' && !isWhitePiece(piece)) || (currentTurn === 'black' && !isBlackPiece(piece))) {
+                    return;
+                }
+                selectedCell = { row, col };
+                renderBoard();
+                return;
+            }
+
+            const selectedPiece = boardState[selectedCell.row][selectedCell.col];
+            if (selectedCell.row === row && selectedCell.col === col) {
+                selectedCell = null;
+                renderBoard();
+                return;
+            }
+
+            const destinationPiece = boardState[row][col];
+            if (destinationPiece && ((isWhitePiece(destinationPiece) && isWhitePiece(selectedPiece)) || (isBlackPiece(destinationPiece) && isBlackPiece(selectedPiece)))) {
+                selectedCell = { row, col };
+                renderBoard();
+                return;
+            }
+
+            boardState[row][col] = selectedPiece;
+            boardState[selectedCell.row][selectedCell.col] = '';
+            selectedCell = null;
+            currentTurn = currentTurn === 'white' ? 'black' : 'white';
+            statusEl.textContent = currentTurn === 'white' ? 'White to move' : 'Black to move';
+            renderBoard();
+        }
+
+        document.getElementById('resetButton').addEventListener('click', resetBoard);
+        resetBoard();
+    </script>
 </body>
 </html>
