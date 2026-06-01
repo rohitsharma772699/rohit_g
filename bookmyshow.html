@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookMyShow Clone</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+.navbar{
+    height:70px;
+    background:#1f2533;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 40px;
+}
+
+.logo{
+    color:rgb(248, 68, 100);
+    font-size:32px;
+    font-weight:bold;
+}
+
+.search{
+    width:45%;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+}
+
+.nav-right button{
+    background:rgb(248, 68, 100);
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.banner{
+    height:350px;
+    background:linear-gradient(to right,#f84464,#ff8c69);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:45px;
+    font-weight:bold;
+}
+
+.section{
+    padding:30px 50px;
+}
+
+.section h2{
+    margin-bottom:20px;
+}
+
+.movies{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:220px;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+.poster{
+    height:300px;
+    background:#cccccc;
+}
+
+.info{
+    padding:15px;
+}
+
+.info h3{
+    margin-bottom:8px;
+}
+
+.info p{
+    color:rgb(231, 9, 9);
+}
+
+.footer{
+    background:#1f2533;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">bookmyshow</div>
+
+    <input type="text" class="search"
+    placeholder="Search for Movies, Events, Plays">
+
+    <div class="nav-right">
+        <button>Sign In</button>
+    </div>
+</div>
+
+<div class="banner">
+    BOOK YOUR SHOW NOW
+</div>
+
+<div class="section">
+    <h2>Recommended Movies</h2>
+
+    <div class="movies">
+
+        <div class="card">
+            <div class="poster"></div>
+            <div class="info">
+                <h3>Movie 1</h3>
+                <p>Action / Adventure</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="poster"></div>
+            <div class="info">
+                <h3>Movie 2</h3>
+                <p>Comedy / Drama</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="poster"></div>
+            <div class="info">
+                <h3>Movie 3</h3>
+                <p>Thriller</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="poster"></div>
+            <div class="info">
+                <h3>Movie 4</h3>
+                <p>Romance</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="poster"></div>
+            <div class="info">
+                <h3>Movie 5</h3>
+                <p>Sci-Fi</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="footer">
+    © 2026 BookMyShow Clone | HTML & CSS Project
+</div>
+
+</body>
+</html>
