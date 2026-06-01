@@ -29,26 +29,106 @@
             border-radius: 50%;
             margin: 10px auto;
             border: 3px solid #111;
+            background-color: #2b2b2b; /* off state */
+            box-shadow: inset 0 -6px 12px rgba(0,0,0,0.6);
+            transition: background-color 0.3s, filter 0.3s;
         }
 
-        .red {
-            background-color: #ff4444;
+        /* on states use vivid colors with glow */
+        .red.on {
+            background-color: #ff3b3b;
+            filter: drop-shadow(0 0 12px rgba(255,59,59,0.8));
         }
 
-        .yellow {
-            background-color: #ffff00;
+        .yellow.on {
+            background-color: #ffd500;
+            filter: drop-shadow(0 0 12px rgba(255,213,0,0.8));
         }
 
-        .green {
-            background-color: #44ff44;
+        .green.on {
+            background-color: #2bff6b;
+            filter: drop-shadow(0 0 12px rgba(43,255,107,0.8));
         }
+
+        /* controls */
+        .controls {
+            display:flex;
+            justify-content:center;
+            gap:8px;
+            margin-top:12px;
+        }
+
+        button {
+            padding:6px 12px;
+            border-radius:6px;
+            border:1px solid #999;
+            background:#fff;
+            cursor:pointer;
+        }
+        button:active{transform:translateY(1px)}
     </style>
 </head>
 <body>
-    <div class="traffic-light">
-        <div class="light red"></div>
-        <div class="light yellow"></div>
-        <div class="light green"></div>
+    <div class="traffic-light" role="group" aria-label="Traffic light">
+        <div class="light red" id="red" role="img" aria-label="red light off"></div>
+        <div class="light yellow" id="yellow" role="img" aria-label="yellow light off"></div>
+        <div class="light green" id="green" role="img" aria-label="green light off"></div>
+        <div class="controls">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+        </div>
     </div>
+
+    <script>
+        // Simple cycle: red -> green -> yellow -> red
+        const red = document.getElementById('red');
+        const yellow = document.getElementById('yellow');
+        const green = document.getElementById('green');
+        let timer = null;
+        const sequence = [
+            {el: red, label: 'red light on', duration: 3000},
+            {el: green, label: 'green light on', duration: 3000},
+            {el: yellow, label: 'yellow light on', duration: 1200},
+        ];
+        let idx = 0;
+
+        function setState(i){
+            [red,yellow,green].forEach(e=>{e.classList.remove('on'); e.setAttribute('aria-label', e.id + ' light off');});
+            const step = sequence[i];
+            step.el.classList.add('on');
+            step.el.setAttribute('aria-label', step.label);
+        }
+
+        function start(){
+            if(timer) return;
+            setState(idx);
+            timer = setInterval(()=>{
+                idx = (idx+1) % sequence.length;
+                setState(idx);
+            }, sequence[idx].duration);
+            // advance interval durations correctly by clearing and restarting each step
+            // simpler approach: use recursive timeouts
+            clearInterval(timer);
+            timer = null;
+            runStep(idx);
+        }
+
+        function runStep(i){
+            setState(i);
+            timer = setTimeout(()=>{
+                runStep((i+1)%sequence.length);
+            }, sequence[i].duration);
+        }
+
+        function stop(){
+            if(timer) { clearTimeout(timer); timer = null; }
+            [red,yellow,green].forEach(e=>{e.classList.remove('on'); e.setAttribute('aria-label', e.id + ' light off');});
+        }
+
+        document.getElementById('start').addEventListener('click', start);
+        document.getElementById('stop').addEventListener('click', stop);
+        // allow space to toggle start/stop
+        document.addEventListener('keydown', e=>{ if(e.code==='Space'){ e.preventDefault(); if(timer) stop(); else start(); } });
+    </script>
 </body>
 </html>
