@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>new grid</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#1e293b;
+}
+.container{
+    width:800px;
+    height:500px;
+    display:grid;
+    grid-template-columns:1fr 2fr 1fr;
+    grid-template-rows:80px 1fr 80px;
+    gap:15px;
+}
+.box{
+    border-radius:20px;
+    color:white;
+    font-size:1.4rem;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+.header{
+    background:#ff6b6b;
+    grid-column:1/-1;
+    grid-row:1;
+}
+.sidebar{
+    background:#00f2fe;
+    grid-column:1;
+    grid-row:2;
+}
+.main{
+    background:#38f9d7;
+    grid-column:2;
+    grid-row:2;
+}
+.aside{
+    background:#fbc2eb;
+    color:#222;
+    grid-column:3;
+    grid-row:2;
+}
+.footer{
+    background:#fa709a;
+    color:#222;
+    grid-column:1/-1;
+    grid-row:3;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="box header">1</div>
+    <div class="box sidebar">2</div>
+    <div class="box main">center</div>
+    <div class="box aside">3</div>
+    <div class="box footer">4</div>
+</div>
+
+</body>
+</html>
