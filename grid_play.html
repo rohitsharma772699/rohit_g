@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Grid</title>
+
+<style>
+/* ===== THEME 1 : BLUE ===== */
+/*
+:root{
+    --bg:#0f172a;
+    --card1:#2563eb;
+    --card2:#3b82f6;
+    --card3:#1d4ed8;
+    --circle:#60a5fa;
+    --chart:#f8fafc;
+}
+*/
+
+/* ===== THEME 2 : NEON ===== */
+/*
+:root{
+    --bg:#0a0a0a;
+    --card1:#1e293b;
+    --card2:#0f172a;
+    --card3:#111827;
+    --circle:#00ffff;
+    --chart:#f3f4f6;
+}
+*/
+
+/* ===== THEME 3 : GREEN ===== */
+/*
+:root{
+    --bg:#052e16;
+    --card1:#16a34a;
+    --card2:#22c55e;
+    --card3:#15803d;
+    --circle:#86efac;
+    --chart:#f0fdf4;
+}
+*/
+
+/* ===== THEME 4 : ORANGE ===== */
+/*
+:root{
+    --bg:#431407;
+    --card1:#ea580c;
+    --card2:#f97316;
+    --card3:#c2410c;
+    --circle:#fdba74;
+    --chart:#fff7ed;
+}
+*/
+
+/* ===== THEME 5 : BLACK & GOLD ===== */
+
+:root{
+    --bg:#0f0f0f;
+    --card1:#1f1f1f;
+    --card2:#262626;
+    --card3:#1a1a1a;
+    --circle:#ffd700;
+    --chart:#fafafa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:var(--bg);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.dashboard{
+    width:900px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:150px 150px 220px;
+    gap:15px;
+}
+
+.card{
+    border-radius:20px;
+    padding:20px;
+    color:white;
+}
+
+.apps{
+    background:var(--card1);
+}
+
+.icons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.icons div{
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+}
+
+.likes,
+.views,
+.users{
+    background:var(--card2);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.likes h1,
+.views h1,
+.users h1{
+    font-size:55px;
+}
+
+.design{
+    background:linear-gradient(135deg,var(--circle),var(--card1));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+.chart{
+    background:var(--chart);
+    color:#222;
+    grid-row:span 2;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.chart h1{
+    font-size:70px;
+}
+
+.learn{
+    background:var(--card3);
+    grid-column:span 2;
+    position:relative;
+    overflow:hidden;
+}
+
+.learn h2{
+    width:60%;
+    line-height:1.5;
+}
+
+.learn::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:var(--circle);
+    right:-40px;
+    bottom:-40px;
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+
+    <div class="card apps">
+        <h4>A Complete Family of Apps</h4>
+        <div class="icons">
+            <div>📘</div>
+            <div>▶️</div>
+            <div>🐦</div>
+            <div>🎵</div>
+        </div>
+    </div>
+
+    <div class="card likes">
+        <h1>25K</h1>
+        <p>Weekly Likes</p>
+    </div>
+
+    <div class="card views">
+        <h1>50K</h1>
+        <p>Weekly Viewers</p>
+    </div>
+
+    <div class="card users">
+        <h1>1,538</h1>
+        <p>Active Users</p>
+    </div>
+
+    <div class="card design">
+        <h2>DESIGN</h2>
+    </div>
+
+    <div class="card chart">
+        <h4>Total Downloads</h4>
+        <h1>20K</h1>
+    </div>
+
+    <div class="card learn">
+        <h2>
+            A place to learn UI Design & Web Design.
+        </h2>
+    </div>
+
+</div>
+
+</body>
+</html>
