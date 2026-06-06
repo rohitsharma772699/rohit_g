@@ -59,15 +59,22 @@
         }
 
         table.board td.light {
-            background-color: #f0d9b5;
+            background-color: #ffffff;
+            color: #000000;
         }
 
         table.board td.dark {
-            background-color: #b58863;
+            background-color: #000000;
+            color: #ffffff;
         }
 
         table.board td.selected {
             outline: 4px solid #ffcc00;
+        }
+
+        table.board td.piece-white,
+        table.board td.piece-black {
+            color: inherit;
         }
 
         .controls {
@@ -143,6 +150,9 @@
                     td.dataset.col = col;
                     const piece = boardState[row][col];
                     td.textContent = pieceSymbols[piece] || '';
+                    if (piece) {
+                        td.classList.add(isWhitePiece(piece) ? 'piece-white' : 'piece-black');
+                    }
                     if (selectedCell && selectedCell.row == row && selectedCell.col == col) {
                         td.classList.add('selected');
                     }
